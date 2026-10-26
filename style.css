@@ -1,0 +1,899 @@
+@font-face {
+  font-family: 'FiveFontsAtFreddys';
+  src: url('https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./main/FiveFontsatFreddy%27s-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: 'FiveFontsAtFreddys', Arial, sans-serif !important;
+}
+
+body{
+    margin:0;
+    background:#000;
+    color:white;
+    font-family:Arial,Helvetica,sans-serif;
+    overflow-x:hidden;
+    overflow-y:auto;
+    text-align:center;
+}
+
+/*================ MENU ================*/
+
+#menu{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background: url("https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/new%20tela.png");
+  background-size: cover;
+  background-position: center;
+  color:white;
+}
+
+#title{
+    margin-top:70px;
+    font-size:42px;
+}
+
+#version{
+    position:absolute;
+    right:15px;
+    bottom:10px;
+    color:#333;
+}
+
+#credits {
+  position: absolute;
+  left: 15px;
+  bottom: 10px;
+  color: #777;
+  font-size: 10px;
+}
+
+.buttons{
+    margin-top:40px;
+}
+
+button{
+    padding:10px;
+    margin:5px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+/*================ OPTIONS ================*/
+
+#optionsMenu{
+    display:none;
+    margin-top:30px;
+    padding-bottom:20px;
+}
+
+/*================ GAME ================*/
+
+#game{
+    display:none;
+    width:100%;
+    min-height:100vh;
+    padding-bottom:0px;
+}
+
+/*================ HUD ================*/
+
+#hud{
+    background:#111;
+    border-bottom:2px solid white;
+    padding:10px;
+    display:flex;
+    justify-content:space-around;
+    font-weight:bold;
+}
+
+#officeTitle{
+    margin:10px;
+}
+
+/*================ OFFICE ================*/
+
+#powerOutAnimation{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    z-index: 9999;
+    pointer-events: none;
+}
+
+#office{
+  position: relative;
+  width: 100%;          /* ← aumenta ou diminui esse valor */
+  height: 45vw;
+  margin: 0 auto;      /* centraliza */
+  min-height: 100px;
+  max-height:none;
+  background: url("https://static.wikia.nocookie.net/pizzaria-freddy-fazbear/images/d/da/300px-OfficeClean.png/revision/latest?cb=20150112121146&path-prefix=pt-br");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border:2px solid white;
+  overflow:hidden;
+}
+
+#officeFan {
+  position: absolute;
+  top: 41%;
+  left: 49%;
+  width: 9%;
+  height: auto;
+  z-index: 1;
+  pointer-events: none;
+  display: none;
+}
+
+/*================ DOORS ================*/
+
+.door{
+  position: absolute;
+  top: 0;
+  width: 18%;          /* em % em vez de px fixo */
+  height: 100%;
+  z-index: 30;
+  overflow: hidden;
+}
+
+.door img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#leftDoor{
+  left: 4%;
+  width: 14%;
+}
+
+#rightDoor{
+  right: 6%;
+  width: 14%;
+}
+
+/*================ LUZES DAS PORTAS ================*/
+
+#leftAnim,
+#rightAnim {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 28%;
+  display: none;
+  z-index: 5;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+#leftAnim {
+  left: 6%;
+  width: 35%;
+}
+
+#rightAnim {
+  right: 6%;
+  width: 35%;
+}
+
+#leftAnim img,
+#rightAnim img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+/*================ CONTROLS ================*/
+
+#controls{
+    margin-top:15px;
+}
+
+/*================ CAMERAS ================*/
+
+#cameraPanel {
+  display: none;
+  position: absolute;
+  right: 2%;
+  bottom: 12%;
+  width: 42%;
+  max-height: 40%;
+  overflow-y: auto;
+  z-index: 55;
+  background: rgba(0,0,0,0.6);
+  border: 2px solid #fff;
+  padding: 4px;
+  box-sizing: border-box;
+  pointer-events: auto;
+  opacity: 0.5;
+}
+
+#cameraView {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: none;
+  z-index: 35;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Ícone de radar na porta (quando câmera aberta + luz + animatronic) */
+.doorRadarIcon {
+  position: absolute;
+  width: 10%;
+  z-index: 70;
+  pointer-events: none;
+  display: none;
+}
+
+#leftDoorRadar {
+  left: 8%;
+  top: 40%;
+}
+
+#rightDoorRadar {
+  right: 8%;
+  top: 40%;
+}
+
+#cameraMap{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+}
+
+.cam{
+    border:2px solid white;
+    min-height:90px;
+    padding:4px;
+    background:#333;
+    font-size:13px;
+    position:relative;
+}
+
+.cam img{
+    max-width:65px;
+    max-height:65px;
+    margin-top:5px;
+}
+
+.selectedCam{
+    background:yellow !important;
+    color:black !important;
+    border:3px solid yellow;
+}
+
+/*================ GAME OVER ================*/
+
+#gameOverScreen{
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+background:url("https://static.wikia.nocookie.net/freddy-fazbears-pizza/images/a/a5/5NAF.png/revision/latest?cb=20140912021724");
+  background-size:cover;
+  background-position:center;
+  z-index: 99999;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow-y: auto;
+}
+
+/*================ WIN SCREEN ================*/
+
+#winScreen{
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  z-index: 99999;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow-y: auto;
+}
+
+#freddyJumpscare,
+#bonnieJumpscare,
+#chicaJumpscare,
+#foxyJumpscare,
+#puppetJumpscare,
+#endoJumpscare {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+#freddyJumpscare img,
+#bonnieJumpscare img,
+#chicaJumpscare img,
+#foxyJumpscare img,
+#puppetJumpscare img,
+#endoJumpscare img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: contain;
+}
+
+#customCharacters img{
+    width:120px;
+    margin:10px;
+}
+
+#customNightMenu{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100vw;
+    height:100vh;
+    z-index:99999;
+    background-image:url("https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/Tela%20de%20titulo%20new(Copy).png");
+    background-size:cover;
+    background-position:center;
+    text-align:center;
+    color:white;
+    overflow-y: auto;
+    padding-bottom: 50px;
+    box-sizing: border-box;
+}
+
+html, body {
+    width:100%;
+    min-height:100%;
+    margin:0;
+    overflow-x:hidden;
+}
+
+#cameraButton {
+  position: absolute;
+  left: 50%;
+  bottom: 2%;
+  transform: translateX(-50%);
+  width: 50%;
+  max-width: 120%;
+  z-index: 70;
+  cursor: pointer;
+  pointer-events: auto;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+#extrasMenu{
+
+display:none;
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:black;
+
+z-index:999999;
+
+overflow-y:auto;
+
+color:white;
+
+text-align:center;
+
+}
+
+#plushCollection{
+
+display:grid;
+
+grid-template-columns:repeat(3,1fr);
+
+gap:25px;
+
+padding:25px;
+
+}
+
+.plushCard{
+
+background:#222;
+
+border:2px solid white;
+
+padding:10px;
+
+}
+
+.plushCard img{
+
+width:140px;
+
+}
+
+.plushCard button{
+
+margin-top:10px;
+
+}
+
+#officePlush{
+
+position:absolute;
+
+bottom:110px;
+
+left:53%;
+
+transform:translateX(-50%);
+
+width:110px;
+
+display:none;
+
+pointer-events:none;
+
+z-index:40;
+
+}
+
+#equipMessage{
+
+position:fixed;
+
+bottom:25px;
+
+left:50%;
+
+transform:translateX(-50%);
+
+background:black;
+
+border:2px solid white;
+
+padding:8px 16px;
+
+display:none;
+
+z-index:999999;
+
+font-size:18px;
+
+}
+
+#newPlushReward{
+
+display:none;
+
+margin-top:20px;
+
+text-align:center;
+
+}
+
+#rewardPlush{
+
+width:140px;
+
+}
+
+#starContainer{
+  position:absolute;
+  top:8px;
+  left:8px;
+  display:flex;
+  gap:6px;
+  z-index:9999;
+}
+
+.star{
+  width:30px;
+  height:30px;
+}
+
+#newspaperScreen{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:black;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:999999;
+    cursor:pointer;
+}
+
+#newspaperScreen img{
+    width:100%;
+    max-width:900px;
+}
+
+img {
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  outline: none;
+  -webkit-user-drag: none;
+  pointer-events: auto;
+}
+
+#hardcoreMenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99999;
+  overflow: hidden;
+}
+
+#hardcoreBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+#hardcoreButtons {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  max-height: 45%;
+  overflow-y: auto;
+  text-align: center;
+  z-index: 2;
+  padding: 12px 10px 20px;
+  box-sizing: border-box;
+  background: linear-gradient(transparent, rgba(0,0,0,0.75));
+}
+
+#hardcoreButtons button {
+  padding: 10px 20px;
+  font-size: 14px;
+  margin: 6px auto;
+  cursor: pointer;
+  display: block;
+  max-width: 260px;
+  width: 80%;
+}
+
+#hardcoreCustomNightMenu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999999;
+  background-image: url("https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/titulo%20new%20hardcore(Copy).png");
+  background-size: cover;
+  background-position: center;
+  overflow-y: auto;
+  text-align: center;
+  color: white;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+.hcChar {
+  width: 140px;
+  text-align: center;
+}
+
+.hcChar img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border: 2px solid white;
+  background: #222;
+}
+
+.hcChar button {
+  padding: 6px 12px;
+  margin: 4px;
+}
+
+#usageMeter {
+  position: absolute;
+  left: 2%;
+  bottom: 12%;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 0.4%;
+  pointer-events: none;
+  height: 7%;          /* altura fixa em relação ao escritório */
+}
+
+#usageLabel {
+  height: 70%;
+  width: auto;         /* não usa % de largura */
+}
+
+#usageBars {
+  display: flex;
+  align-items: center;
+  gap: 0.3%;
+  height: 100%;
+}
+
+#usageBars img {
+  height: 100%;        /* todas as barras do mesmo tamanho */
+  width: auto;
+  flex-shrink: 0;      /* não deixa espremer */
+}
+
+#powerLeft {
+  position: absolute;
+  left: 2%;
+  bottom: 4%;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 0.3%;
+  pointer-events: none;
+  height: 6%;
+}
+
+#powerLeftLabel {
+  height: 70%;
+  width: auto;
+}
+
+#powerDigits {
+  display: flex;
+  align-items: center;
+  gap: 0.15%;
+  height: 100%;
+}
+
+#powerDigits img {
+  height: 100%;
+  width: auto;
+  flex-shrink: 0;
+}
+
+#powerPercent {
+  height: 80%;
+  width: auto;
+}
+
+#hcCustomCharacters,
+#cnCharacters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  padding: 15px;
+}
+
+.cnChar {
+  width: 140px;
+  text-align: center;
+}
+
+.cnPortrait {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border: 2px solid white;
+  background: #222;
+  display: block;
+  margin: 0 auto;
+}
+
+.cnControls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  margin-top: 6px;
+  flex-wrap: nowrap;
+}
+
+.cnBtn {
+  width: 28px;
+  height: auto;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
+  flex-shrink: 0;
+}
+
+.cnAI {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  min-width: 40px;
+}
+
+.cnAI img {
+  height: 18px;
+  width: auto;
+}
+
+.officeBtn {
+  position: absolute;
+  width: 7%;
+  z-index: 80;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: auto;
+}
+
+/* ESQUERDA — porta em cima, luz embaixo */
+#btnLeftDoor {
+  left: 0%;
+  top: 35%;
+}
+
+#btnLeftLight {
+  left: 0%;
+  top: 56%;
+}
+
+/* DIREITA — porta em cima, luz embaixo */
+#btnRightDoor {
+  right: 1%;
+  left: auto;
+  top: 35%;
+}
+
+#btnRightLight {
+  right: 1%;
+  left: auto;
+  top: 56%;
+}
+
+#cameraMap {
+  display: none !important;
+}
+
+.cam {
+  cursor: pointer;
+  pointer-events: auto;
+  min-height: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: rgba(255, 255, 0, 0.4);
+}
+
+.cam-icon {
+  height: 40%;
+  margin-top: 4%;
+}
+
+.cam-icon img {
+  height: 40%;
+  width: auto;
+}
+
+/* ===== INTRO DA NOITE ===== */
+#nightIntroScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#nightIntroContent {
+  text-align: center;
+  color: white;
+}
+
+#hardcoreIntroText {
+  font-size: 28px;
+  margin-bottom: 15px;
+  letter-spacing: 3px;
+}
+
+#nightIntroNumber {
+  font-size: 52px;
+  margin-bottom: 10px;
+}
+
+#nightIntroTime {
+  font-size: 32px;
+}
+
+/* ===== LOADING ===== */
+#loadingScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#loadingText {
+  color: white;
+  font-size: 60px;
+  margin-bottom: 30px;
+  letter-spacing: 4px;
+}
+
+#loadingBarContainer {
+  width: 60%;
+  max-width: 400px;
+  height: 18px;
+  background: #222;
+  border: 2px solid #555;
+}
+
+#loadingBar {
+  width: 0%;
+  height: 100%;
+  background: #fff;
+  transition: width 0.2s;
+}

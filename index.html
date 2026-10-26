@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Five Nights At Freddy&#39;s feito por IA</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <div id="menu">
+
+  <div class="buttons">
+  <button id="night6Button" style="display:none" onclick="startNight6()">Noite 6</button>
+
+  <button id="customNightButton" style="display:none" onclick="openCustomNight()">Custom Night</button>
+
+  <!-- ESTRELAS AGORA FICAM AQUI FORA (aparecem após Noite 5) -->
+  <div id="starContainer" style="margin: 10px 0;"></div>
+
+  <button onclick="newGameIntro()" id="newGame">New Game</button>
+
+  <div id="newspaperScreen" onclick="closeNewspaper()">
+    <img src="https://raw.githubusercontent.com/alcantaranderson7-glitch/Music-box-fnaf-1/refs/heads/main/539.png">
+  </div>
+
+  <button onclick="continueGame()" id="continueButton">Continue</button>
+  <button onclick="openOptions()" id="optionsButton">Options</button>
+
+  <button id="extrasButton" style="display:none" onclick="openExtras()">Extras</button>
+
+  <!-- RADAR SÓ APARECE DEPOIS DA NOITE 6 -->
+  <button id="radarShopButton" style="display:none" onclick="openRadarShop()">Loja de hackers</button>
+
+    <button id="hardcoreButton" style="display:none" onclick="openHardcoreMenu()">
+  Modo Hardcore
+</button>
+    
+  <button onclick="resetProgress()">Resetar Progresso</button>
+</div>
+        
+       <div id="optionsMenu">  <h2>Options</h2>  
+
+<p>Language</p>  
+
+<button onclick="setLanguage('en')">  
+  English  
+</button>  
+
+<button onclick="setLanguage('pt')">  
+  Português BR  
+</button>  
+
+<br><br>  
+
+<p>Volume</p>  
+
+<input type="range" id="volume" min="0" max="100" value="100">  
+
+<br><br>  
+
+<button onclick="closeOptions()">  
+  Back  
+</button>
+
+  </div>  
+   
+   <div id="version">  
+    Version:13.3 
+  </div>  
+
+<div id="credits">
+  criado por Anderson + IAs (Gemini, ChatGPT, Grok)
+</div>
+
+</div>  <div id="game">    <div id="blackoutScreen">  
+    <div id="freddyBlackout"></div>  
+  </div>    <div id="youtubePlayer" style="position:fixed; left:-9999px; top:-9999px; width:1px; height:1px;"></div>    <script src="https://www.youtube.com/iframe_api"></script>    <div id="darkOffice"></div>    <div id="hud">  
+    <span id="nightLabel">Night 1</span>  
+    <span id="clock">12 AM</span>  
+  </div>    <h2 id="officeTitle">  
+    Office  
+  </h2>    <div id="office">
+  
+  <div id="cameraView"></div>
+
+  <!-- Plush -->
+  <img id="officePlush">
+  
+  <img id="officeFan" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/fan%201.png" alt="Fan">
+
+  <!-- Portas -->
+  <div id="leftDoor" class="door"></div>
+  <div id="rightDoor" class="door"></div>
+
+  <!-- Luzes -->
+  <div id="leftAnim"></div>
+  <div id="rightAnim"></div>
+
+  <!-- Animação de Power Out -->
+  <div id="powerOutAnimation"></div>
+
+  <!-- Jumpscares (dentro do office) -->
+  <div id="freddyJumpscare" style="display:none;">
+    <img src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/jumpscare%20freddy11.png">
+  </div>
+
+  <div id="bonnieJumpscare" style="display:none;">
+    <img src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/jumpscare%20bonnie%203.png">
+  </div>
+
+  <div id="chicaJumpscare" style="display:none;">
+    <img src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/jumpscare%20chica%2011.png">
+  </div>
+
+  <div id="foxyJumpscare" style="display:none;">
+    <img src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/jumpscare%20foxy%2025.png">
+  </div>
+  
+  <div id="puppetJumpscare" style="display:none;">
+  <img src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/324.png" alt="Puppet Jumpscare">
+</div>
+  
+  <div id="endoJumpscare" style="display:none;">
+  <img src="https://static.wikia.nocookie.net/ultra-custom-night/images/3/30/Endo01ShrkiJumpscare.png/revision/latest?cb=20221008050625">
+</div>
+  
+  <img id="leftDoorRadar" class="doorRadarIcon" src="">
+<img id="rightDoorRadar" class="doorRadarIcon" src="">
+  
+  <!-- USAGE -->
+<div id="usageMeter">
+  <img id="usageLabel" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/usage.png" alt="Usage">
+  <div id="usageBars"></div>
+</div>
+
+<!-- POWER LEFT -->
+<div id="powerLeft">
+  <img id="powerLeftLabel" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/power%20left.png" alt="Power left">
+  <div id="powerDigits"></div>
+  <img id="powerPercent" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/percent.png" alt="%">
+</div>
+  
+  <div id="gameOverScreen">  
+    <h1>GAME OVER</h1>  
+    <button onclick="resetNight()">Retry Night</button>
+    <button onclick="goMenu()">Menu</button>  
+  </div>    
+  
+  <!-- BOTÕES ESQUERDA -->
+<img id="btnLeftDoor"
+  class="officeBtn"
+  src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/bot%C3%A3o%20de%20porta%20esquerdo.png"
+  onclick="toggleDoor('left')">
+
+<img id="btnLeftLight"
+  class="officeBtn"
+  src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/bot%C3%A3o%20de%20luz%20esquerdo.png"
+  onclick="toggleLeftLight()">
+
+<!-- BOTÕES DIREITA -->
+<img id="btnRightDoor"
+  class="officeBtn"
+  src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/bot%C3%A3o%20de%20porta%20direito.png"
+  onclick="toggleDoor('right')">
+
+<img id="btnRightLight"
+  class="officeBtn"
+  src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/bot%C3%A3o%20de%20luz%20direito.png"
+  onclick="toggleRightLight()">
+  
+  <!-- Painel de cams (escondido no início) -->
+<div id="cameraPanel" style="display:none;">
+<div class="cam" id="stageCam" data-cam="stage">
+  <span class="cam-name">Stage</span>
+  <div class="cam-icon"></div>
+</div>
+
+<div class="cam" id="diningCam" data-cam="dining">
+  <span class="cam-name">Dining Area</span>
+  <div class="cam-icon"></div>
+</div>
+
+  <div class="cam" id="backstageCam" data-cam="backstage">
+  <span class="cam-name">Backstage</span>
+  <div class="cam-icon"></div>
+</div>
+  
+  <div class="cam" id="pirateCam" data-cam="pirate">
+  <span class="cam-name">Pirate Cove</span>
+  <div class="cam-icon"></div>
+</div>
+  
+  <div class="cam" id="restroomCam" data-cam="restroom">
+  <span class="cam-name">Restrooms</span>
+  <div class="cam-icon"></div>
+</div>
+
+  <div class="cam" id="kitchenCam" data-cam="kitchen">
+  <span class="cam-name">Kitchen</span>
+  <div class="cam-icon"></div>
+</div>
+
+  <div class="cam" id="supplyCam" data-cam="supply">
+  <span class="cam-name">Supply Closet</span>
+  <div class="cam-icon"></div>
+</div>
+  
+  <div class="cam" id="westHallCam" data-cam="westHall">
+  <span class="cam-name">West hall</span>
+  <div class="cam-icon"></div>
+</div>
+  
+  <div class="cam" id="westCornerCam" data-cam="westcorner">
+  <span class="cam-name">West Corner</span>
+  <div class="cam-icon"></div>
+</div>
+ 
+  <div class="cam" id="eastHallCam" data-cam="eastHall">
+  <span class="cam-name">East Hall</span>
+  <div class="cam-icon"></div>
+</div>
+  
+  
+  <div class="cam" id="eastCornerCam" data-cam="eastcorner">
+  <span class="cam-name">East Corner</span>
+  <div class="cam-icon"></div>
+</div>
+
+  <div class="cam" id="entranceCam" data-cam="entrance" style="display:none">
+    <span class="cam-name">Entrance</span>
+    <div class="cam-icon"></div>
+  </div>
+
+  <div class="cam" id="safeRoomCam" data-cam="safeRoom" style="display:none">
+    <span class="cam-name">Safe Room</span>
+    <div class="cam-icon"></div>
+  </div>
+</div>
+  
+  <!-- Botão da Câmera (por último pra ficar na frente) -->
+  <img id="cameraButton"  
+       src="https://raw.githubusercontent.com/alcantaranderson7-glitch/Music-box-fnaf-1/refs/heads/main/1783612512796.png"  
+       onclick="toggleCamera()">
+  
+  <div id="winScreen" style="display:none; !important;">
+  <h1>6 AM</h1>
+  <button onclick="nextNight()">Next Night</button>
+  <button onclick="goMenu()">Menu</button>
+  
+    </div> </div>
+              
+    <div id="controls">  
+    <button onclick="goMenu()">Menu</button>  
+      <button id="resetEnergyBtn" style="display:none" onclick="resetEnergy()">
+  Resetar Energia (+25%)
+</button>
+  </div>
+    <button id="resetPuppetMusicBtn" style="display:none" onclick="resetPuppetMusic()">
+  <img src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/486.png" style="width:60px">
+</button>
+  <button id="changePuppetMusicBtn" style="display:none" onclick="changePuppetMusic()">
+  <img src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/1786126804036.png" style="width:60px">
+</button>
+  </div>  
+  
+  <div id="newPlushReward" style="display:none;">
+    <img id="rewardPlush">
+    <h3>Novo Plush Desbloqueado!</h3>
+  </div>
+</div>
+    
+    <!-- TELAS DE FINAL -->
+<div id="endingScreen" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:black; z-index:999999; cursor:pointer;">
+  <img id="endingImage" src="" style="width:100%; height:100%; object-fit:contain;">
+</div>
+
+  </div>  </div>  <div id="customNightMenu">    <h1>CUSTOM NIGHT</h1>    
+    <div id="cnCharacters" style="display:flex;flex-wrap:wrap;justify-content:center;gap:15px;padding:15px;">
+
+    <!-- FREDDY -->
+    <div class="cnChar">
+      <img class="cnPortrait" src="https://static.wikia.nocookie.net/pizzaria-freddy-fazbear/images/4/4e/FreddyFZB.png/revision/latest?cb=20150110134042&path-prefix=pt-br" alt="Freddy">
+      <div class="cnControls">
+        <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/602.png" data-mode="normal" data-anim="freddy" data-delta="-10" data-side="left" data-type="orange">
+        <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/557.png" data-mode="normal" data-anim="freddy" data-delta="-1" data-side="left" data-type="gray">
+        <div class="cnAI" id="cnFreddyDigits"></div>
+        <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/556.png" data-mode="normal" data-anim="freddy" data-delta="1" data-side="right" data-type="gray">
+        <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/595.png" data-mode="normal" data-anim="freddy" data-delta="10" data-side="right" data-type="orange">
+      </div>
+    </div>
+      
+      <!-- BONNIE -->
+    <div class="cnChar">
+      <img class="cnPortrait" src="https://static.wikia.nocookie.net/fnafultimatecustomnight/images/5/55/Bonnue.jpg/revision/latest?cb=20180415071631" alt="Bonnie">
+      <div class="cnControls">
+        <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/602.png" data-mode="normal" data-anim="bonnie" data-delta="-10" data-side="left" data-type="orange">
+        <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/557.png" data-mode="normal" data-anim="bonnie" data-delta="-1" data-side="left" data-type="gray">
+        <div class="cnAI" id="cnBonnieDigits"></div>
+        <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/556.png" data-mode="normal" data-anim="bonnie" data-delta="1" data-side="right" data-type="gray">
+        <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/595.png" data-mode="normal" data-anim="bonnie" data-delta="10" data-side="right" data-type="orange">
+      </div>
+    </div>
+      
+      <!-- CHICA -->
+    <div class="cnChar">
+      <img class="cnPortrait" src="https://static.wikia.nocookie.net/pizzaria-freddy-fazbear/images/c/c3/200px-Chica.png/revision/latest?cb=20150110134015&path-prefix=pt-br" alt="Chica">
+      <div class="cnControls">
+        <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/602.png" data-mode="normal" data-anim="chica" data-delta="-10" data-side="left" data-type="orange">
+        <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/557.png" data-mode="normal" data-anim="chica" data-delta="-1" data-side="left" data-type="gray">
+        <div class="cnAI" id="cnChicaDigits"></div>
+        <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/556.png" data-mode="normal" data-anim="chica" data-delta="1" data-side="right" data-type="gray">
+        <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/595.png" data-mode="normal" data-anim="chica" data-delta="10" data-side="right" data-type="orange">
+      </div>
+    </div>
+      
+       <!-- FOXY -->
+    <div class="cnChar">
+      <img class="cnPortrait" src="https://static.wikia.nocookie.net/pizzaria-freddy-fazbear/images/1/1d/FoxyPirata.png/revision/latest?cb=20150110180603&path-prefix=pt-br" alt="Foxy">
+      <div class="cnControls">
+        <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/602.png" data-mode="normal" data-anim="foxy" data-delta="-10" data-side="left" data-type="orange">
+        <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/557.png" data-mode="normal" data-anim="foxy" data-delta="-1" data-side="left" data-type="gray">
+        <div class="cnAI" id="cnFoxyDigits"></div>
+        <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/556.png" data-mode="normal" data-anim="foxy" data-delta="1" data-side="right" data-type="gray">
+        <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/595.png" data-mode="normal" data-anim="foxy" data-delta="10" data-side="right" data-type="orange">
+      </div>
+    </div>
+      
+       <!-- GOLDEN -->
+    <div class="cnChar">
+      <img class="cnPortrait" src="https://static.wikia.nocookie.net/pizzaria-freddy-fazbear/images/b/b7/GF_Icon.png/revision/latest?cb=20150121204808&path-prefix=pt-br" alt="Golden">
+      <div class="cnControls">
+        <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/602.png" data-mode="normal" data-anim="golden" data-delta="-10" data-side="left" data-type="orange">
+        <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/557.png" data-mode="normal" data-anim="golden" data-delta="-1" data-side="left" data-type="gray">
+        <div class="cnAI" id="cnGoldenDigits"></div>
+        <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/556.png" data-mode="normal" data-anim="golden" data-delta="1" data-side="right" data-type="gray">
+        <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/595.png" data-mode="normal" data-anim="golden" data-delta="10" data-side="right" data-type="orange">
+      </div>
+    </div>
+   </div>
+
+<label>Tempo:</label>
+<input type="number" id="goldenTime" value="3000" min="500" step="500">
+
+<br><br>
+
+  <select id="energySelect">  
+    <option value="low">Energia Maior</option>  
+    <option value="normal" selected>Energia Normal</option>  
+    <option value="high">Energia Pouca</option>  
+  </select>  <br><br>
+
+  <button onclick="startCustomNight()">  
+    START  
+  </button>  <br><br>
+
+  <button onclick="closeCustomNight()">  
+    Voltar  
+  </button>    <button onclick="preset420()">  
+    4/20  
+  </button>    <button onclick="goldenMode()">  
+    Golden Mode  
+  </button>    <button onclick="randomCustomNight()">  
+    Aleatório  
+  </button>    <h2>Desafios dos Plushs</h2>  <div id="plushChallenges">  <button onclick="startPlushChallenge('freddy')">  
+Freddy Up  
+</button>  <button onclick="startPlushChallenge('bonnie')">  
+Bonnie Up  
+</button>  <button onclick="startPlushChallenge('chica')">  
+Chica Up  
+</button>  <button onclick="startPlushChallenge('foxy')">  
+Foxy The Pirate Up  
+</button>  <button onclick="startPlushChallenge('golden')">  
+Golden Freddy True  
+</button>    </div>  </div>  <button id="customNightButton" style="display:none" onclick="openCustomNight()">  
+Custom Night  
+</button>  <div id="extrasMenu">  <h1>EXTRAS</h1>  <div id="plushCollection">  </div>  <br>  <button onclick="closeExtras()">  
+Voltar  
+</button>  </div>  <div id="equipMessage"></div>  
+
+<div id="radarShop" style="display:none;">
+  <h1>Loja de Hackers</h1>
+
+  <div style="max-height: 70vh; overflow-y: auto; padding: 10px;">
+
+    <div style="margin-bottom: 30px; border-bottom: 1px solid #444; padding-bottom: 20px;">
+      <h2>Radar</h2>
+      <img src="https://raw.githubusercontent.com/alcantaranderson7-glitch/Music-box-fnaf-1/refs/heads/main/1783651459334.png" style="width:120px">
+      <p>Troque o Plush Freddy pelo Radar.</p>
+      <button id="radarButton" onclick="buyRadar()">Comprar Radar</button>
+    </div>
+
+    <div style="margin-bottom: 30px; border-bottom: 1px solid #444; padding-bottom: 20px;">
+      <h2>Energia Infinita</h2>
+      <img src="https://raw.githubusercontent.com/alcantaranderson7-glitch/Music-box-fnaf-1/refs/heads/main/plush_fredbear_by_alebatman_de31dds.png" style="width:120px">
+      <p>Troque o Plush Golden Freddy pela energia infinita.</p>
+      <button onclick="buyInfinitePower()">Ativar Energia Infinita</button>
+    </div>
+
+    <div style="margin-bottom: 30px;">
+      <h2>Noite 2x Mais Rápida</h2>
+      <img src="https://raw.githubusercontent.com/alcantaranderson7-glitch/Music-box-fnaf-1/refs/heads/main/1783651825092.png" style="width:120px">
+      <p>Troque o Plush Foxy para a noite passar 2 vezes mais rápido.</p>
+      <button onclick="buyFastNight()">Ativar Noite 2x Rápida</button>
+    </div>
+
+    <div style="margin-bottom: 30px; border-bottom: 1px solid #444; padding-bottom: 20px;">
+  <h2>Modo Hardcore</h2>
+  <p>Troque TODOS os plushs para desbloquear o Modo Hardcore.<br>
+  (Só disponível após passar o Golden Freddy True)</p>
+  <button onclick="unlockHardcore()">Desbloquear Hardcore</button>
+</div>
+    
+  </div>
+
+  <br>
+  <button onclick="closeRadarShop()">Voltar</button>
+</div>
+
+<!-- MENU HARDCORE -->
+<div id="hardcoreMenu" style="display:none;">
+  <img id="hardcoreBg" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/New%20tela%20hardcore.png">
+  
+  <div id="hardcoreButtons">
+  <button onclick="startHardcoreNewGame()">New Game</button>
+  <div style="height: 5px;"></div>
+  <button onclick="startHardcoreContinue()">Continue</button>
+    <button id="hardcoreNight6Button" style="display:none" onclick="startHardcoreNight6()">
+  Noite 6
+</button>
+<div style="height: 5px;"></div>
+    
+    <button id="hardcoreCustomNightButton" style="display:none" onclick="openHardcoreCustomNight()">
+  Custom Night
+</button>
+    
+  <div style="height: 15px;"></div>
+  <button onclick="closeHardcoreMenu()">Voltar ao Modo Normal</button>
+</div>
+</div>
+
+<div id="hardcoreCustomNightMenu" style="display:none;">
+  <h1 style="color:white; margin-top:20px;">Custom Night Hardcore</h1>
+
+  <div id="hcCustomCharacters" style="display:flex; flex-wrap:wrap; justify-content:center; gap:15px; padding:15px;">
+
+     <!-- FREDDY -->
+  <div class="cnChar">
+    <img class="cnPortrait" src="https://static.wikia.nocookie.net/pizzaria-freddy-fazbear/images/4/4e/FreddyFZB.png/revision/latest?cb=20150110134042&path-prefix=pt-br" alt="Freddy">
+    <div class="cnControls">
+      <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/602.png" data-mode="hardcore" data-anim="freddy" data-delta="-10" data-side="left" data-type="orange">
+      <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/557.png" data-mode="hardcore" data-anim="freddy" data-delta="-1" data-side="left" data-type="gray">
+      <div class="cnAI" id="hcFreddyDigits"></div>
+      <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/556.png" data-mode="hardcore" data-anim="freddy" data-delta="1" data-side="right" data-type="gray">
+      <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/595.png" data-mode="hardcore" data-anim="freddy" data-delta="10" data-side="right" data-type="orange">
+    </div>
+  </div>
+
+      <!-- BONNIE -->
+  <div class="cnChar">
+    <img class="cnPortrait" src="https://static.wikia.nocookie.net/fnafultimatecustomnight/images/5/55/Bonnue.jpg/revision/latest?cb=20180415071631" alt="Bonnie">
+    <div class="cnControls">
+      <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/602.png" data-mode="hardcore" data-anim="bonnie" data-delta="-10" data-side="left" data-type="orange">
+      <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/557.png" data-mode="hardcore" data-anim="bonnie" data-delta="-1" data-side="left" data-type="gray">
+      <div class="cnAI" id="hcBonnieDigits"></div>
+      <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/556.png" data-mode="hardcore" data-anim="bonnie" data-delta="1" data-side="right" data-type="gray">
+      <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/595.png" data-mode="hardcore" data-anim="bonnie" data-delta="10" data-side="right" data-type="orange">
+    </div>
+  </div>
+
+      <!-- CHICA -->
+  <div class="cnChar">
+    <img class="cnPortrait" src="https://static.wikia.nocookie.net/pizzaria-freddy-fazbear/images/c/c3/200px-Chica.png/revision/latest?cb=20150110134015&path-prefix=pt-br" alt="Chica">
+    <div class="cnControls">
+      <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/602.png" data-mode="hardcore" data-anim="chica" data-delta="-10" data-side="left" data-type="orange">
+      <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/557.png" data-mode="hardcore" data-anim="chica" data-delta="-1" data-side="left" data-type="gray">
+      <div class="cnAI" id="hcChicaDigits"></div>
+      <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/556.png" data-mode="hardcore" data-anim="chica" data-delta="1" data-side="right" data-type="gray">
+      <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/595.png" data-mode="hardcore" data-anim="chica" data-delta="10" data-side="right" data-type="orange">
+    </div>
+  </div>
+
+      <!-- FOXY -->
+  <div class="cnChar">
+    <img class="cnPortrait" src="https://static.wikia.nocookie.net/pizzaria-freddy-fazbear/images/1/1d/FoxyPirata.png/revision/latest?cb=20150110180603&path-prefix=pt-br" alt="Foxy">
+    <div class="cnControls">
+      <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/602.png" data-mode="hardcore" data-anim="foxy" data-delta="-10" data-side="left" data-type="orange">
+      <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/557.png" data-mode="hardcore" data-anim="foxy" data-delta="-1" data-side="left" data-type="gray">
+      <div class="cnAI" id="hcFoxyDigits"></div>
+      <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/556.png" data-mode="hardcore" data-anim="foxy" data-delta="1" data-side="right" data-type="gray">
+      <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/595.png" data-mode="hardcore" data-anim="foxy" data-delta="10" data-side="right" data-type="orange">
+    </div>
+  </div>
+    
+      <!-- ENDO -->
+  <div class="cnChar">
+    <img class="cnPortrait" src="https://static.wikia.nocookie.net/ultra-custom-night/images/9/97/Endo01ShrkiIcon.png/revision/latest?cb=20220818174944" alt="Endo">
+    <div class="cnControls">
+      <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/602.png" data-mode="hardcore" data-anim="endo" data-delta="-10" data-side="left" data-type="orange">
+      <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/557.png" data-mode="hardcore" data-anim="endo" data-delta="-1" data-side="left" data-type="gray">
+      <div class="cnAI" id="hcEndoDigits"></div>
+      <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/556.png" data-mode="hardcore" data-anim="endo" data-delta="1" data-side="right" data-type="gray">
+      <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/595.png" data-mode="hardcore" data-anim="endo" data-delta="10" data-side="right" data-type="orange">
+    </div>
+  </div>
+
+      <!-- PUPPET -->
+  <div class="cnChar">
+    <img class="cnPortrait" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/1786124927978.png" alt="Puppet">
+    <div class="cnControls">
+      <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/602.png" data-mode="hardcore" data-anim="puppet" data-delta="-10" data-side="left" data-type="orange">
+      <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/557.png" data-mode="hardcore" data-anim="puppet" data-delta="-1" data-side="left" data-type="gray">
+      <div class="cnAI" id="hcPuppetDigits"></div>
+      <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/556.png" data-mode="hardcore" data-anim="puppet" data-delta="1" data-side="right" data-type="gray">
+      <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/595.png" data-mode="hardcore" data-anim="puppet" data-delta="10" data-side="right" data-type="orange">
+    </div>
+  </div>
+    
+        <!-- GOLDEN -->
+  <div class="cnChar">
+    <img class="cnPortrait" src="https://static.wikia.nocookie.net/pizzaria-freddy-fazbear/images/b/b7/GF_Icon.png/revision/latest?cb=20150121204808&path-prefix=pt-br" alt="Golden">
+    <div class="cnControls">
+      <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/602.png" data-mode="hardcore" data-anim="golden" data-delta="-10" data-side="left" data-type="orange">
+      <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/557.png" data-mode="hardcore" data-anim="golden" data-delta="-1" data-side="left" data-type="gray">
+      <div class="cnAI" id="hcGoldenDigits"></div>
+      <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/556.png" data-mode="hardcore" data-anim="golden" data-delta="1" data-side="right" data-type="gray">
+      <img class="cnBtn" src="https://raw.githubusercontent.com/telma7744-crypto/Coisas-de-fnafs./refs/heads/main/595.png" data-mode="hardcore" data-anim="golden" data-delta="10" data-side="right" data-type="orange">
+    </div>
+  </div>
+
+  </div>
+
+  <h2 style="color:white;">Comportamentos</h2>
+  <div style="text-align:left; max-width:320px; margin:0 auto; color:white;">
+    <label><input type="checkbox" id="hcFreddySwitchHall"> Freddy troca de corredor</label><br>
+    <label><input type="checkbox" id="hcBonnieSkip"> Bonnie pula 2 câmeras</label><br>
+    <label><input type="checkbox" id="hcChicaSkip"> Chica pula 2 câmeras</label><br>
+    <label><input type="checkbox" id="hcFreddyNoLaugh"> Freddy sem risada</label><br>
+    <label><input type="checkbox" id="hcFoxyFast"> Foxy corre mais rápido</label><br>
+    <label><input type="checkbox" id="hcPuppetLessTime"> Puppet com menos tempo</label><br>
+    <label><input type="checkbox" id="hcEndoDouble"> Endo ataca 2x na porta</label><br>
+  </div>
+
+  <br>
+  <button onclick="startHardcoreCustomNight()">START</button>
+  <br><br>
+  <button onclick="closeHardcoreCustomNight()">Voltar</button>
+</div>
+
+<!-- TELA DE INTRO DA NOITE -->
+<div id="nightIntroScreen" style="display:none;">
+  <div id="nightIntroContent">
+    <div id="hardcoreIntroText" style="display:none;">Hardcore Mode</div>
+    <div id="nightIntroNumber">Night 1</div>
+    <div id="nightIntroTime">11:59 AM</div>
+  </div>
+</div>
+
+<!-- TELA DE LOADING -->
+<div id="loadingScreen" style="display:none;">
+  <div id="loadingText">Loading</div>
+  <div id="loadingBarContainer">
+    <div id="loadingBar"></div>
+  </div>
+</div>
+    <script  src="./script.js"></script>
+
+  </body>
+  
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg => console.log('SW registrado'))
+      .catch(err => console.log('Erro SW:', err));
+  });
+}
+
+</html>
